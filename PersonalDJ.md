@@ -7,6 +7,7 @@ Focus: Recursive scanning of ~/.hermes/music/, handling metadata (artist, title,
 Outcome: A functional indexer that can categorize songs and podcasts.
 
 
+
 Prompt 2: The Pirate Persona & TTS Wrapper Goal: Define the "soul" of DJ Squawk.
 
 Files to generate: persona.py and tts_helper.py.
@@ -14,5 +15,17 @@ Files to generate: persona.py and tts_helper.py.
 Focus: Building the vocabulary dictionary (Pirate + Gen Alpha slang), creating randomized templates for "bridge" talk, and the wrapper that intercepts strings to inject a "gravelly" pirate tone/accent before sending them to the system TTS.
 
 Outcome: A module where you can input play_intro("Artist") and get a full pirate-style spoken string back.
+
+
+
+Task 3: Audio Playback & The Core Loop
+Goal: Handle the actual sound output and the continuous logic.
+
+Files to generate: player.py and dj.py.
+
+Focus: Implementing pyalsaaudio or pydub playback targeting the specific 3.5mm sound card. Building the "Daemon" loop that picks a song, triggers the TTS intro, plays the audio, and handles the 4–8 song podcast rotation logic.
+
+Outcome: A skill that can actually play music in a sequence with "DJ talk" in between.
+
 
 
