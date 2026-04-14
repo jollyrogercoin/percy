@@ -1,3 +1,5 @@
+your context filled up on this last prompt. you may have already set some of this up, so check and if something is setup already, skip it.
+
 You are an expert Python skill developer for the Hermes / Rhasspy-style voice-agent framework. Your task is to build a complete, production-ready, expandable skillset for a new DJ persona named DJ Squawk (the fun, swashbuckling Personal DJ). Create the entire skill inside the folder:
 ~/.hermes/skills/dj/
 
