@@ -76,4 +76,4 @@ All spoken lines must be generated on-the-fly with TTS so the DJ always sounds f
 Include comprehensive inline comments and a top-level README.md inside the skill folder explaining every module.
 Make every major class/method easily subclassable or overridable for future expansions.
 
-Output the complete folder structure with every file’s full code. When you finish, print “ DJ SKILL FOR DJ SQUAWK IS READY TO BE DEPLOYED” and give the exact one-line command the user should run to activate the new persona.Start building now. Make this the most fun, alive, and expandable DJ skill Percy has ever had. Arrr! Let’s make the airwaves sing!
+Output the complete folder structure with every file’s full code. When you finish, print “ DJ SKILL FOR DJ SQUAWK IS READY TO BE DEPLOYED” and give the exact one-line command the user should run to activate the new persona.
