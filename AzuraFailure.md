@@ -110,7 +110,7 @@ SECTION 5: Implement Matrix Handler (matrix_handler.py)
 
 Post-Installation Verification Commands
    ---------------------------------------
-   After all sections complete, run these checks. (if they fail, remember that and create a prompt for each failure to be fixed in it's own context (make sure to put the necessary context prior to the prompt to keep agent on course):
+   After all sections complete, only run the following checks - make no changes. (if a check fails, remember it. when all checks are done, create a different prompt for each failure so the agent can fix it. make sure to put the necessary context of what the skills/tools being tested are prior to the prompt to keep agent on course.):
 
    1. Directory exists:
       ls -la ~/.hermes/skills/dj/
