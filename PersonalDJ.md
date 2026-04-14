@@ -18,7 +18,7 @@ Outcome: A module where you can input play_intro("Artist") and get a full pirate
 
 
 
-Task 3: Audio Playback & The Core Loop
+Prompt 3: Audio Playback & The Core Loop
 Goal: Handle the actual sound output and the continuous logic.
 
 Files to generate: player.py and dj.py.
@@ -26,6 +26,16 @@ Files to generate: player.py and dj.py.
 Focus: Implementing pyalsaaudio or pydub playback targeting the specific 3.5mm sound card. Building the "Daemon" loop that picks a song, triggers the TTS intro, plays the audio, and handles the 4–8 song podcast rotation logic.
 
 Outcome: A skill that can actually play music in a sequence with "DJ talk" in between.
+
+
+
+Prompt 4: Matrix Integration & Request Handling Goal: Connect the DJ to the outside world.
+
+Files to generate: matrix_handler.py.
+
+Focus: Connecting to the Matrix room, regex parsing for /request, logic for scanning chat history for shout-outs, and managing the in-memory request queue (with deduplication).
+
+Outcome: The DJ now "listens" to the chat and can give live shout-outs on-air.
 
 
 
