@@ -49,7 +49,8 @@ Provide a status check to confirm if the stream is currently 'On Air' or 'Offlin
 
 
 
-Prompt 4: run pre-flight checks to validate everything is installed and available including the azuracast server. once initial tests are done, report back for next task. don't try to fix anything yet, just report test results
+Prompt 4: run checks to validate DJ skills install - this should be quick. once initial tests are done, report back for next task. don't try to fix anything, just report test results
+
 
 
 
