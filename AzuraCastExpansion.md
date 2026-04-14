@@ -5,7 +5,7 @@ Create the directory /var/azuracast, download the docker.sh installer from the o
 
 Configure the AzuraCast instance to accept an external Base Source connection, which our FFmpeg bridge will use to feed the audio from the local sound card."
 
-Prompt 1:
+Prompt 2:
 "We are expanding the DJ Squawk Linux home server agent. The goal is to take the audio currently playing through the physical sound card and simultaneously broadcast it via a self-hosted AzuraCast instance running on this same machine.
 
 Your current task:
