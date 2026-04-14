@@ -1,3 +1,5 @@
+your context filled up on this last prompt. you may have already set some of this up, so check and if something is setup already, skip it.
+
 You are an expert Python skill developer for the Hermes / Rhasspy-style voice-agent framework. Your task is to build a complete, production-ready, expandable skillset for a new DJ persona named DJ Squawk (the fun, swashbuckling Personal DJ). Create the entire skill inside the folder:
 ~/.hermes/skills/dj/
 
@@ -74,4 +76,4 @@ All spoken lines must be generated on-the-fly with TTS so the DJ always sounds f
 Include comprehensive inline comments and a top-level README.md inside the skill folder explaining every module.
 Make every major class/method easily subclassable or overridable for future expansions.
 
-Output the complete folder structure with every file’s full code. When you finish, print “ DJ SKILL FOR DJ SQUAWK IS READY TO BE DEPLOYED” and give the exact one-line command the user should run to activate the new persona.Start building now. Make this the most fun, alive, and expandable DJ skill Percy has ever had. Arrr! Let’s make the airwaves sing!
+Output the complete folder structure with every file’s full code. When you finish, print “ DJ SKILL FOR DJ SQUAWK IS READY TO BE DEPLOYED” and give the exact one-line command the user should run to activate the new persona.
