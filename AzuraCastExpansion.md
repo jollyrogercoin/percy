@@ -3,7 +3,9 @@ Prompt 1:
 
 Create the directory /var/azuracast, download the docker.sh installer from the official repo, and run the install command.
 
-Configure the AzuraCast instance to accept an external Base Source connection, which our FFmpeg bridge will use to feed the audio from the local sound card."
+Configure the AzuraCast instance to accept an external Base Source connection, which our FFmpeg bridge will use to feed the audio from the local sound card.
+
+When setting up AzuraCast, if there is already a service hosted on the default port, change port to a free port in the 8000 range."
 
 
 
