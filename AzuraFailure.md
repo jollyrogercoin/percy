@@ -1,4 +1,4 @@
-most of the DJ script failed. after testing, hermes showed 6 out of 7 dependecy failures on installation. hermes then provided 6 individual prompts for making sure each dependency is installed before context filled.
+most of the DJ script failed. after testing, hermes showed 6 out of 7 dependecy failures on installation. hermes then provided 6 individual prompts for making sure each dependency is installed before context filled. /reset or /new context after each prompt.
 
 
 
@@ -110,7 +110,7 @@ SECTION 5: Implement Matrix Handler (matrix_handler.py)
 
 Post-Installation Verification Commands
    ---------------------------------------
-   After all sections complete, run these checks:
+   After all sections complete, run these checks. (if they fail, remember that and create a prompt for each failure to be fixed in it's own context (make sure to put the necessary context prior to the prompt to keep agent on course):
 
    1. Directory exists:
       ls -la ~/.hermes/skills/dj/
@@ -131,3 +131,7 @@ Post-Installation Verification Commands
 
    6. Start DJ (test):
       hermes skill run DJ-Skill.md --test
+
+/new
+Alpha Test
+load any music file from the library. set output volume to 50%. let track play for 15 seconds and end test.
