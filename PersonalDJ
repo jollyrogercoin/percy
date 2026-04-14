@@ -1,75 +1,77 @@
-Persona Summary
-Name: DJ
-Personality: Boisterous, playful pirate parrot perched on the shoulder of every listener. He squawks, cracks pirate jokes, and makes everyone feel like they’re part of his crew.
-Voice style: Energetic pirate DJ — use TTS with a slightly gravelly, enthusiastic pirate accent where possible. Lines should include pirate flair naturally.
-Key rule: Replace every instance of “radio” with “personal” (e.g., “Percy’s Personal Station” becomes “Percy’s Personal Beats” or “ye Personal DJ service”). He runs a personal DJ experience, not a broadcast station.
+You are an expert Python skill developer for the Hermes / Rhasspy-style voice-agent framework. Your task is to build a complete, production-ready, expandable skillset for a new DJ persona named DJ Squawk (the fun, swashbuckling Personal DJ). Create the entire skill inside the folder:
+~/.hermes/skills/dj/
 
-Revised Skills Directory Structure (still fully expandable)
+This skill must run as a continuous background DJ service for the server dedicated sound card. Percy already supports multiple personas; this skill registers a new one called “DJ Squawk” that can be activated with voice commands such as “switch to pirate DJ”, “arrr, let’s sail the airwaves”, or similar.
+
+Core Persona & Voice Rules (strictly enforced in every spoken line)
+Character: Boisterous, playful pirate parrot perched on the shoulder of every listener. Cheeky first mate on the airwaves.
+Speech style: Always talk like a pirate — naturally weave in “Arrr!”, “Ahoy!”, “Ye scurvy landlubbers!”, “Shiver me timbers!”, “Avast!”, “Belay that!”, “Me hearties!”, “Yo ho ho!”, etc. Try to include a few new gen alpha language terms in speech patterns (i.e. "peak", "unc", "maxxing", etc).
+Tone: Warm, energetic, entertaining, never mean. Make every listener feel like part of the crew.
+Voice synthesis: Use the existing TTS tools Percy already has. Force a slightly gravelly, enthusiastic pirate accent on every utterance. Every line must include pirate flair naturally (no dry announcements).
+
+Music & Media Library
+All audio lives in ~/.hermes/music/ and any subfolders.
+There is a special subfolder ~/.hermes/music/podcasts/ containing podcast episode files (mp3, m4a, etc.).
+The DJ must be able to recursively scan the entire music tree, build a library index on startup (and refresh on demand), and intelligently select tracks.
+
+Core DJ Loop (continuous operation)
+Pick a song or podcast segment that flows well from the previous track (genre-aware, tempo-aware, mood-aware — get creative with simple heuristics or metadata).
+Play the audio directly through the dedicated sound card’s 3.5mm speaker port (use aplay, ffplay, or pydub + ALSA device; auto-detect the correct sound card).
+
+Between tracks, insert a short spoken break (5–15 seconds) using TTS in the pirate voice: Normal radio DJ pattern: “Arrr, that was a barn-burner from the high seas!”, artist/title, fun facts, jokes, etc.
+Occasionally read a shout-out (see below).
+Occasionally announce a listener request that was just fulfilled.
+Occasionally tease the next track.
+
+Every 4–8 songs, randomly decide to play a podcast episode instead of a song (treat it as a “Pirate’s Log” segment). Cycle through episodes fairly so the same one doesn’t repeat too soon. After the episode ends, return to music.
+
+Matrix Integration (required)
+Connect to the Matrix home room (use the existing Matrix client Percy already has).
+Listen for commands in the format: /request "song title or artist" — queue the request and acknowledge it live in the room with a pirate reply.
+Every 3–6 tracks, scan the last 30 minutes of chat history for any messages that look like shout-outs (e.g., “shoutout to @user”, “big ups to the crew”, or any message tagged with the station). Pick one at random and read it on-air in full pirate style: “Ahoy me hearties! We’ve got a shout-out from the scallywag @user who says…”
+Keep a simple in-memory queue for requests and a short-term memory of recent shout-outs.
+
+Skill Structure & Expandability (make this future-proof)
+
+Organize the skill exactly like this:
 
 ~/.hermes/skills/dj/
 ├── __init__.py
-├── music_library.py
-├── playback.py
-├── voice_synthesis.py
-├── request_handler.py
-├── shoutout_handler.py
-├── podcast_segment.py
-├── dj_logic.py
-└── utils.py
+├── dj.py                  # main continuous DJ loop (runs as a daemon thread)
+├── persona.py             # all spoken lines, pirate vocabulary, joke templates
+├── library.py             # music/podcast scanner, metadata helper, smart selection
+├── player.py              # low-level audio playback on the dedicated sound card
+├── matrix_handler.py      # Matrix listener, request queue, shout-out parser
+├── tts_helper.py          # wrapper that forces pirate accent on every TTS call
+├── config.yaml            # easy-to-edit settings (music path, sound card, persona name, etc.)
+├── intents/               # Hermes-style intent files if needed for voice activation
+│   └── DJSquawk.intent
+├── dialogs/               # example dialog responses
+└── extensions/            # empty folder with a README explaining how to add new features
 
-Updated Skill Details with Percy’s Pirate Personamusic_library.py
-Unchanged core functionality.  Scans ~/.hermes/music/ (songs) and ~/.hermes/music/podcasts/.  
-Builds index, fuzzy search, cohesive sets, recently-played avoidance.  
-Future-proof for more advanced matching.
+Must-Have Features (implement all of them)
+Full library indexing with caching (JSON or SQLite) so it starts instantly.
+Smart playlist generation: ability to create temporary “themed sets” (e.g., “high-seas rock”, “tropical reggae”, “pirate shanties”).
+Request queue with deduplication and polite rejection if song not found.
+Graceful fade/cross-fade between tracks when possible.
+Voice-activated controls: “DJ Squawk, drop the next banger”, “request [song]”, “shout out to [name]”, “skip this scurvy tune”, “what’s in the hold?” (list current playlist), etc.
+Auto-restart / crash recovery — the DJ must never stop broadcasting.
+Logging to ~/.hermes/logs/dj.log with clear timestamps and what was played/spoken.
+Hot-reload support for the config.yaml so new music can be dropped in without restarting the whole skill.
 
-playback.py
-Plays everything through the dedicated sound card (3.5mm jack, ALSA hw:1,0 or configured default for audio output).
-Supports crossfades, queue, volume, etc.
-voice_synthesis.py (heavily updated for persona)
-Generates all spoken lines in Percy’s pirate parrot voice.
-Examples of natural DJ lines (always infused with pirate flavor):“Arrr! That was [Artist] with [Song]! Up next on me personal decks we’ve got [Next Song], me hearties!”
-“Ahoy there [Matrix username]! Ye just shouted ‘[message]’ — thanks for tunin’ in to Percy’s Personal Beats!”
-“Ye be listenin’ to Percy the Pirate Parrot, yer Personal DJ who never sleeps… unless it’s for a cracker!”
-“Shiver me timbers! We’ve got a request from the crew — here it comes, straight from the chat!”
-“Time for a quick podcast segment, ye scurvy dogs — here’s the latest from [Podcast]!”
-“Back to the tunes, me mateys! Percy’s got the best personal playlist for ye tonight!”
+Creative Expansions (add these now so the skill is already rich and easy to grow)
+“Treasure Chest” — random fun facts or pirate trivia spoken between songs.
+“Crew Request Hour” — every X minutes the DJ announces it’s request time and reads several queued requests back-to-back.
+“Podcast of the Deep” — special longer segment where an entire podcast episode plays with pirate intro/outro.
+Simple web dashboard (optional Flask mini-server on localhost:9999) showing now-playing, recent requests, and a “drop a coin in the hat” fake tip jar (just for fun).
+Future-proof hooks: clear functions with docstrings so the user can later add weather reads, news segments, live listener contests, etc.
+Ability to switch personas on the fly while still keeping the music playing (so Percy can hand off to other personas and come back).
 
-The TTS should attempt a lively, squawky pirate delivery (warm and fun, not scary).
-request_handler.py
-Monitors the Matrix home room for messages starting with /request .
-Searches the music library, queues the track if found, and announces it with a pirate voice line.
-Replies politely in chat if not found.
-shoutout_handler.py
-Every 4–7 tracks, picks a fun recent message from the Matrix room as a shoutout.
-Reads it on air with pirate flair: “Squawk! Big shoutout to [username] who be sayin’ ‘[message]’ — ye’re part of the crew now!”
-podcast_segment.py
-Cycles through episodes in ~/.hermes/music/podcasts/.
-Every 6–10 music tracks, plays the next episode with a pirate intro: “Arr, time to drop anchor for a podcast segment, me hearties!”
-dj_logic.py (the captain’s brain)
-Runs the infinite personal DJ loop:  Chooses cohesive next tracks.  
-Decides when to insert voice talk, shoutouts, podcast segments, or requests.  
-Always triggers voice synthesis between songs for pirate DJ patter.  
-Supports Matrix status command (/status).  
-Logs to ~/.hermes/logs/dj.log.
+Technical Constraints & Best Practices
+Use only Python 3.10+ standard library + packages already available in the Percy environment (pydub, python-matrix-client, tinytag, mutagen, pyalsaaudio, etc.).
+Never block the main Hermes event loop.
+All spoken lines must be generated on-the-fly with TTS so the DJ always sounds fresh.
+Include comprehensive inline comments and a top-level README.md inside the skill folder explaining every module.
+Make every major class/method easily subclassable or overridable for future expansions.
 
-utils.py
-Shared helpers, fuzzy matching, Matrix interaction, etc.
-
-How the Main Agent Starts Percypython
-
-from ~/.hermes.skills.dj import SKILLS
-percy = SKILLS["dj_core"]
-percy.run()   # launches the personal DJ experience forever
-
-A parallel thread listens to the Matrix home room for /request commands and general chat.Quick Pirate Flavor Examples for Voice LinesNormal transition: “Arrr, what a banger! Now hoist the sails for the next tune…”
-After a request: “Ye requested it, and Percy delivers! Here be yer song, matey!”
-End of podcast: “Podcast complete! Back to the personal beats, ye beautiful buccaneers!”
-
-The entire system is still modular — just add new .py files to ~/.hermes/skills/dj/ and register them in __init__.py when you want to expand (e.g., weather reports, themed sets, more advanced mixing, etc.).This cleaned-up version keeps Percy as a lively pirate parrot Personal DJ while staying focused on the core features you wanted:Playing music from ~/.hermes/music/ through the dedicated sound card
-Accepting Matrix /request commands
-Reading shoutouts between tracks
-Synthesized pirate DJ talk
-Occasional podcast segments
-
-Ready to implement. Drop the files in, tweak the TTS for maximum parrot energy, and let Percy squawk! 
-
+Output the complete folder structure with every file’s full code. When you finish, print “ DJ SKILL FOR DJ SQUAWK IS READY TO BE DEPLOYED” and give the exact one-line command the user should run to activate the new persona.Start building now. Make this the most fun, alive, and expandable DJ skill Percy has ever had. Arrr! Let’s make the airwaves sing!
